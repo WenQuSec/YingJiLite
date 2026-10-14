@@ -1,0 +1,12 @@
+build-*/
+dist/
+reports/
+tests/test-output-*/
+*.exe
+*.dll
+*.etl
+*.zip
+*.log
+payload.bin
+.env
+.env.*

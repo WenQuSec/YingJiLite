@@ -1,0 +1,1 @@
+﻿namespace YingJiStatic { public static class Decode { public static void Xor(byte[] b, byte[] k) { for(int i=0;i<b.Length;i++)b[i]^=k[i%k.Length]; } } }

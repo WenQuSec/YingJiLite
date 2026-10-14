@@ -1,0 +1,22 @@
+name: Windows build and synthetic evidence test
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build single EXE
+        shell: powershell
+        run: .\build.ps1 -Destination "$env:RUNNER_TEMP\YingJiLite-build"
+      - name: Test synthetic evidence
+        shell: powershell
+        run: .\tests\smoke.ps1 -Binary "$env:RUNNER_TEMP\YingJiLite-build\YingJiLite.exe" -Output "$env:RUNNER_TEMP\YingJiLite-test"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: YingJiLite-Windows-x64
+          path: ${{ runner.temp }}/YingJiLite-build/YingJiLite.exe
